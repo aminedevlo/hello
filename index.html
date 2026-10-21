@@ -1,58 +1,380 @@
-async function fetchWithFallback(url) {
-  const encodedUrl = encodeURIComponent(url);
-
-  // Array of public CORS proxy strategies
-  const proxies = [
-    {
-      name: "allorigins-json",
-      url: `https://api.allorigins.win/get?url=${encodedUrl}`,
-      parse: async (res) => {
-        const data = await res.json();
-        return data.contents;
-      }
-    },
-    {
-      name: "allorigins-raw",
-      url: `https://api.allorigins.win/raw?url=${encodedUrl}`,
-      parse: (res) => res.text()
-    },
-    {
-      name: "corsproxy-io",
-      url: `https://corsproxy.io/?${encodedUrl}`,
-      parse: (res) => res.text()
-    },
-    {
-      name: "codetabs",
-      url: `https://api.codetabs.com/v1/proxy?quest=${encodedUrl}`,
-      parse: (res) => res.text()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEO Metadata Inspector</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-subtle: #1f2937;
+      --border: #374151;
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --error-bg: rgba(239, 68, 68, 0.1);
+      --error-border: #ef4444;
+      --error-text: #fca5a5;
     }
-  ];
 
-  let lastError = null;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-  for (const proxy of proxies) {
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    input[type="url"] {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="url"]:focus {
+      border-color: var(--primary);
+    }
+
+    button {
+      background: var(--primary);
+      color: #0b0f19;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      font-size: 0.88rem;
+      color: var(--muted);
+      display: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
+
+    .status.error {
+      display: block;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-text);
+    }
+
+    .status.loading {
+      display: block;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .preview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .preview-image {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      background: #000;
+      display: block;
+    }
+
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .site-domain {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .site-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .site-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .meta-details {
+      border-top: 1px solid var(--border);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      row-gap: 10px;
+      font-size: 0.85rem;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .meta-value {
+      word-break: break-all;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>SEO Metadata Inspector</h1>
+    <p>Live fallback CORS scraping for OpenGraph, Twitter, and SEO tags.</p>
+  </header>
+
+  <div class="search-box">
+    <input type="url" id="targetUrl" placeholder="https://example.com" required autocomplete="off">
+    <button id="fetchBtn" onclick="inspectUrl()">Inspect</button>
+  </div>
+
+  <div id="statusMessage" class="status"></div>
+
+  <div class="preview-card" id="card">
+    <img id="cardImage" class="preview-image" alt="Thumbnail Preview" style="display: none;">
+    <div class="card-body">
+      <span class="site-domain" id="cardDomain"></span>
+      <h2 class="site-title" id="cardTitle"></h2>
+      <p class="site-desc" id="cardDesc"></p>
+    </div>
+    <div class="meta-details" id="metaTable"></div>
+  </div>
+</div>
+
+<script>
+  async function fetchWithFallback(targetUrl, onProgress) {
+    const encoded = encodeURIComponent(targetUrl);
+
+    const proxies = [
+      {
+        name: "CodeTabs",
+        url: `https://api.codetabs.com/v1/proxy?quest=${encoded}`,
+        extract: (res) => res.text()
+      },
+      {
+        name: "CORSProxy.io",
+        url: `https://corsproxy.io/?${encoded}`,
+        extract: (res) => res.text()
+      },
+      {
+        name: "AllOrigins (JSON)",
+        url: `https://api.allorigins.win/get?url=${encoded}`,
+        extract: async (res) => {
+          const data = await res.json();
+          return data.contents;
+        }
+      }
+    ];
+
+    let lastError = null;
+
+    for (const proxy of proxies) {
+      try {
+        if (onProgress) onProgress(`Contacting via ${proxy.name}...`);
+        
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 7000); // 7s timeout per proxy
+
+        const res = await fetch(proxy.url, { signal: controller.signal });
+        clearTimeout(timeout);
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const text = await proxy.extract(res);
+        if (text && text.trim().length > 100) {
+          return text;
+        }
+        throw new Error("Returned content was empty or truncated.");
+      } catch (err) {
+        lastError = `${proxy.name}: ${err.name === 'AbortError' ? 'Timeout' : err.message}`;
+      }
+    }
+
+    throw new Error(`All proxies failed. (${lastError})`);
+  }
+
+  async function inspectUrl() {
+    const input = document.getElementById("targetUrl");
+    const button = document.getElementById("fetchBtn");
+    const status = document.getElementById("statusMessage");
+    const card = document.getElementById("card");
+
+    let target = input.value.trim();
+    if (!target) return;
+
+    if (!/^https?:\/\//i.test(target)) {
+      target = "https://" + target;
+      input.value = target;
+    }
+
+    button.disabled = true;
+    card.style.display = "none";
+    status.className = "status loading";
+
     try {
-      console.log(`Attempting request via ${proxy.name}...`);
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s timeout
+      const htmlText = await fetchWithFallback(target, (msg) => {
+        status.textContent = msg;
+      });
 
-      const response = await fetch(proxy.url, { signal: controller.signal });
-      clearTimeout(timeoutId);
+      status.textContent = "Parsing extracted markup...";
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status} from ${proxy.name}`);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, "text/html");
+
+      const getMeta = (selectors) => {
+        for (const sel of selectors) {
+          const el = doc.querySelector(sel);
+          if (el) {
+            const val = el.getAttribute("content") || el.innerText;
+            if (val && val.trim()) return val.trim();
+          }
+        }
+        return null;
+      };
+
+      const title = getMeta([
+        'meta[property="og:title"]',
+        'meta[name="twitter:title"]',
+        'title'
+      ]) || "Untitled Page";
+
+      const description = getMeta([
+        'meta[property="og:description"]',
+        'meta[name="twitter:description"]',
+        'meta[name="description"]'
+      ]) || "No description provided.";
+
+      const rawImage = getMeta([
+        'meta[property="og:image"]',
+        'meta[name="twitter:image"]',
+        'link[rel="image_src"]'
+      ]);
+
+      const canonical = getMeta([
+        'link[rel="canonical"]',
+        'meta[property="og:url"]'
+      ]) || target;
+
+      let absoluteImage = null;
+      if (rawImage) {
+        try {
+          absoluteImage = new URL(rawImage, target).href;
+        } catch {
+          absoluteImage = rawImage;
+        }
       }
 
-      const html = await proxy.parse(response);
-      if (html && html.length > 50) {
-        return html; // Successfully retrieved markup
+      const domain = new URL(target).hostname;
+      document.getElementById("cardDomain").textContent = domain;
+      document.getElementById("cardTitle").textContent = title;
+      document.getElementById("cardDesc").textContent = description;
+
+      const imgEl = document.getElementById("cardImage");
+      if (absoluteImage) {
+        imgEl.src = absoluteImage;
+        imgEl.style.display = "block";
+      } else {
+        imgEl.style.display = "none";
       }
-      throw new Error(`Empty response from ${proxy.name}`);
+
+      const metaTable = document.getElementById("metaTable");
+      metaTable.innerHTML = `
+        <div class="meta-label">Title</div>
+        <div class="meta-value">${escapeHtml(title)}</div>
+        <div class="meta-label">Description</div>
+        <div class="meta-value">${escapeHtml(description)}</div>
+        <div class="meta-label">Canonical</div>
+        <div class="meta-value">${escapeHtml(canonical)}</div>
+        <div class="meta-label">Image</div>
+        <div class="meta-value">${absoluteImage ? escapeHtml(absoluteImage) : "None"}</div>
+      `;
+
+      status.className = "status";
+      status.style.display = "none";
+      card.style.display = "block";
+
     } catch (err) {
-      console.warn(`Proxy ${proxy.name} failed:`, err.message);
-      lastError = err;
+      status.className = "status error";
+      status.textContent = `Scrape Error: ${err.message}`;
+    } finally {
+      button.disabled = false;
     }
   }
 
-  throw new Error(`All proxies failed. Root issue: ${lastError ? lastError.message : "Network unreachable"}`);
-}
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
+
+</body>
+</html>
