@@ -3,378 +3,369 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SEO Metadata Inspector</title>
+  <title>StylesDays Editorial Hub | Home Decor, Bedroom Styling &amp; IKEA Hacks</title>
+  <meta name="description" content="Official curated Home Decor, Bedroom Styling, and IKEA Hacks directory by StylesDays.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://aminedevlo.github.io/hello/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="StylesDays Editorial Hub">
+  <meta property="og:description" content="Curated Home Decor, Bedroom Styling, and IKEA Hacks guides.">
+  <meta property="og:url" content="https://aminedevlo.github.io/hello/">
+  <meta property="og:image" content="https://aminedevlo.github.io/hello/assets/images/default-hero.jpg">
   <style>
-    :root {
-      --bg: #0b0f19;
-      --card-bg: #111827;
-      --card-subtle: #1f2937;
-      --border: #374151;
-      --primary: #38bdf8;
-      --primary-hover: #0ea5e9;
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --error-bg: rgba(239, 68, 68, 0.1);
-      --error-border: #ef4444;
-      --error-text: #fca5a5;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      padding: 40px 16px;
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 680px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-top: 4px;
-    }
-
-    .search-box {
-      display: flex;
-      gap: 8px;
-    }
-
-    input[type="url"] {
-      flex: 1;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: var(--text);
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="url"]:focus {
-      border-color: var(--primary);
-    }
-
-    button {
-      background: var(--primary);
-      color: #0b0f19;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.2s, opacity 0.2s;
-    }
-
-    button:hover {
-      background: var(--primary-hover);
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .status {
-      font-size: 0.88rem;
-      color: var(--muted);
-      display: none;
-      padding: 10px 14px;
-      border-radius: 6px;
-    }
-
-    .status.error {
-      display: block;
-      background: var(--error-bg);
-      border: 1px solid var(--error-border);
-      color: var(--error-text);
-    }
-
-    .status.loading {
-      display: block;
-      background: var(--card-subtle);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .preview-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: none;
-    }
-
-    .preview-image {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-      background: #000;
-      display: block;
-    }
-
-    .card-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .site-domain {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .site-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      line-height: 1.4;
-    }
-
-    .site-desc {
-      font-size: 0.92rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .meta-details {
-      border-top: 1px solid var(--border);
-      padding: 16px 20px;
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      row-gap: 10px;
-      font-size: 0.85rem;
-      background: rgba(0, 0, 0, 0.15);
-    }
-
-    .meta-label {
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .meta-value {
-      word-break: break-all;
-      color: var(--text);
-    }
+    *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
+    html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    body{margin:0;background-color:#f9fafb;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto}
+    h1,h2,p{margin:0}
+    .font-serif-title{font-family:Georgia,'Times New Roman',Times,serif}
+    .header-bar{width:100%;background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:40}
+    .header-inner{max-width:64rem;margin:0 auto;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between}
+    .main-wrap{max-width:64rem;width:100%;margin:0 auto;padding:2.5rem 1.25rem;flex-grow:1}
+    .grid-3{display:grid;grid-template-columns:1fr;gap:1.5rem}
+    @media(min-width:640px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:768px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+    .rel-card{background:#fff;border-radius:1rem;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04);transition:box-shadow .2s}
+    .rel-card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+    .rel-img-wrap{aspect-ratio:16/10;overflow:hidden;background:#e5e7eb}
+    .rel-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+    .rel-card:hover .rel-img{transform:scale(1.04)}
+    .rel-body{padding:1.25rem}
+    .rel-title{font-weight:700;color:#111827;line-height:1.35}
+    .site-footer{width:100%;border-top:1px solid #e5e7eb;background:#fff;padding:1.5rem;margin-top:3rem;text-align:center;font-size:0.75rem;color:#4b5563}
   </style>
 </head>
 <body>
-
-<div class="container">
-  <header>
-    <h1>SEO Metadata Inspector</h1>
-    <p>Live fallback CORS scraping for OpenGraph, Twitter, and SEO tags.</p>
-  </header>
-
-  <div class="search-box">
-    <input type="url" id="targetUrl" placeholder="https://example.com" required autocomplete="off">
-    <button id="fetchBtn" onclick="inspectUrl()">Inspect</button>
-  </div>
-
-  <div id="statusMessage" class="status"></div>
-
-  <div class="preview-card" id="card">
-    <img id="cardImage" class="preview-image" alt="Thumbnail Preview" style="display: none;">
-    <div class="card-body">
-      <span class="site-domain" id="cardDomain"></span>
-      <h2 class="site-title" id="cardTitle"></h2>
-      <p class="site-desc" id="cardDesc"></p>
+  <header class="header-bar">
+    <div class="header-inner">
+      <span class="font-serif-title" style="font-size:1.5rem;font-weight:700">StylesDays</span>
+      <a href="https://stylesdays.com" target="_blank" rel="noopener" style="font-size:0.75rem;font-weight:700;color:#c8001e">Visit Official Site &rarr;</a>
     </div>
-    <div class="meta-details" id="metaTable"></div>
-  </div>
-</div>
-
-<script>
-  async function fetchWithFallback(targetUrl, onProgress) {
-    const encoded = encodeURIComponent(targetUrl);
-
-    const proxies = [
-      {
-        name: "CodeTabs",
-        url: `https://api.codetabs.com/v1/proxy?quest=${encoded}`,
-        extract: (res) => res.text()
-      },
-      {
-        name: "CORSProxy.io",
-        url: `https://corsproxy.io/?${encoded}`,
-        extract: (res) => res.text()
-      },
-      {
-        name: "AllOrigins (JSON)",
-        url: `https://api.allorigins.win/get?url=${encoded}`,
-        extract: async (res) => {
-          const data = await res.json();
-          return data.contents;
-        }
-      }
-    ];
-
-    let lastError = null;
-
-    for (const proxy of proxies) {
-      try {
-        if (onProgress) onProgress(`Contacting via ${proxy.name}...`);
-        
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 7000); // 7s timeout per proxy
-
-        const res = await fetch(proxy.url, { signal: controller.signal });
-        clearTimeout(timeout);
-
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const text = await proxy.extract(res);
-        if (text && text.trim().length > 100) {
-          return text;
-        }
-        throw new Error("Returned content was empty or truncated.");
-      } catch (err) {
-        lastError = `${proxy.name}: ${err.name === 'AbortError' ? 'Timeout' : err.message}`;
-      }
-    }
-
-    throw new Error(`All proxies failed. (${lastError})`);
-  }
-
-  async function inspectUrl() {
-    const input = document.getElementById("targetUrl");
-    const button = document.getElementById("fetchBtn");
-    const status = document.getElementById("statusMessage");
-    const card = document.getElementById("card");
-
-    let target = input.value.trim();
-    if (!target) return;
-
-    if (!/^https?:\/\//i.test(target)) {
-      target = "https://" + target;
-      input.value = target;
-    }
-
-    button.disabled = true;
-    card.style.display = "none";
-    status.className = "status loading";
-
-    try {
-      const htmlText = await fetchWithFallback(target, (msg) => {
-        status.textContent = msg;
-      });
-
-      status.textContent = "Parsing extracted markup...";
-
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlText, "text/html");
-
-      const getMeta = (selectors) => {
-        for (const sel of selectors) {
-          const el = doc.querySelector(sel);
-          if (el) {
-            const val = el.getAttribute("content") || el.innerText;
-            if (val && val.trim()) return val.trim();
-          }
-        }
-        return null;
-      };
-
-      const title = getMeta([
-        'meta[property="og:title"]',
-        'meta[name="twitter:title"]',
-        'title'
-      ]) || "Untitled Page";
-
-      const description = getMeta([
-        'meta[property="og:description"]',
-        'meta[name="twitter:description"]',
-        'meta[name="description"]'
-      ]) || "No description provided.";
-
-      const rawImage = getMeta([
-        'meta[property="og:image"]',
-        'meta[name="twitter:image"]',
-        'link[rel="image_src"]'
-      ]);
-
-      const canonical = getMeta([
-        'link[rel="canonical"]',
-        'meta[property="og:url"]'
-      ]) || target;
-
-      let absoluteImage = null;
-      if (rawImage) {
-        try {
-          absoluteImage = new URL(rawImage, target).href;
-        } catch {
-          absoluteImage = rawImage;
-        }
-      }
-
-      const domain = new URL(target).hostname;
-      document.getElementById("cardDomain").textContent = domain;
-      document.getElementById("cardTitle").textContent = title;
-      document.getElementById("cardDesc").textContent = description;
-
-      const imgEl = document.getElementById("cardImage");
-      if (absoluteImage) {
-        imgEl.src = absoluteImage;
-        imgEl.style.display = "block";
-      } else {
-        imgEl.style.display = "none";
-      }
-
-      const metaTable = document.getElementById("metaTable");
-      metaTable.innerHTML = `
-        <div class="meta-label">Title</div>
-        <div class="meta-value">${escapeHtml(title)}</div>
-        <div class="meta-label">Description</div>
-        <div class="meta-value">${escapeHtml(description)}</div>
-        <div class="meta-label">Canonical</div>
-        <div class="meta-value">${escapeHtml(canonical)}</div>
-        <div class="meta-label">Image</div>
-        <div class="meta-value">${absoluteImage ? escapeHtml(absoluteImage) : "None"}</div>
-      `;
-
-      status.className = "status";
-      status.style.display = "none";
-      card.style.display = "block";
-
-    } catch (err) {
-      status.className = "status error";
-      status.textContent = `Scrape Error: ${err.message}`;
-    } finally {
-      button.disabled = false;
-    }
-  }
-
-  function escapeHtml(str) {
-    const div = document.createElement("div");
-    div.textContent = str;
-    return div.innerHTML;
-  }
-</script>
-
+  </header>
+  <main class="main-wrap">
+    <div style="margin-bottom:2rem">
+      <h1 class="font-serif-title" style="font-size:2rem;font-weight:700;margin-bottom:0.5rem">Curated Home Decor &amp; Styling Guides</h1>
+      <p style="color:#374151;font-size:1rem">Browse our latest room inspiration, smart storage solutions, and DIY furniture upgrades.</p>
+    </div>
+    <div class="grid-3">
+      
+    <a href="/stylish-home-decor-ideas-for-real-life-homes-4/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/stylish-home-decor-ideas-for-real-life-homes-4.jpg" alt="7 Stylish Home Decor Ideas for Real Life Homes" width="400" height="250" fetchpriority="high" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">7 Stylish Home Decor Ideas for Real Life Homes</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 7 stylish home decor ideas for real life homes that blend warmth, functionality, and timeless design to create inviting spaces.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/8-modern-bedroom-ideas-for-stylish-homes/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/8-modern-bedroom-ideas-for-stylish-homes.jpg" alt="8 Modern Bedroom Ideas for Stylish Homes" width="400" height="250" fetchpriority="high" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">8 Modern Bedroom Ideas for Stylish Homes</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 8 modern bedroom ideas for stylish homes that blend comfort and elegance, creating your perfect personal sanctuary.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/12-taupe-and-white-bedroom-ideas-for-minimalist-style/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/12-taupe-and-white-bedroom-ideas-for-minimalist-style.jpg" alt="12 Taupe and White Bedroom Ideas for Minimalist Style" width="400" height="250" fetchpriority="high" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">12 Taupe and White Bedroom Ideas for Minimalist Style</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 12 taupe and white bedroom ideas for a minimalist look that blends elegance and comfort perfectly.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/minimalist-bedroom-design-ideas-3/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/minimalist-bedroom-design-ideas-3.jpg" alt="8 Minimalist Bedroom Design Ideas for a Chic Retreat" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">8 Minimalist Bedroom Design Ideas for a Chic Retreat</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 8 minimalist bedroom design ideas that transform your space into a chic retreat, promoting tranquility and style.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/built-in-furniture-ideas/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/built-in-furniture-ideas.jpg" alt="7 Built-In Furniture Ideas for Your Dream Bedroom" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">7 Built-In Furniture Ideas for Your Dream Bedroom</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 7 built-in furniture ideas that enhance storage and style in your bedroom, creating a luxurious and organized space.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/10-cozy-japanese-bedroom-ideas/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/10-cozy-japanese-bedroom-ideas.jpg" alt="10 Cozy Japanese Bedroom Ideas for Tranquil Living" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">10 Cozy Japanese Bedroom Ideas for Tranquil Living</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 10 cozy Japanese bedroom ideas that blend minimalism and warmth, creating a serene retreat in your home.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/7-small-bedroom-decorating-ideas-modern/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/7-small-bedroom-decorating-ideas-modern.jpg" alt="7 Small Bedroom Decorating Ideas Modern for Style" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">7 Small Bedroom Decorating Ideas Modern for Style</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 7 small bedroom decorating ideas modern that blend style and functionality for a cozy retreat you’ll love.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/minimalist-bedroom-ideas-for-2026/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/minimalist-bedroom-ideas-for-2026.jpg" alt="7 Minimalist Bedroom Ideas for 2026 That Inspire Calm" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">7 Minimalist Bedroom Ideas for 2026 That Inspire Calm</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 7 minimalist bedroom ideas for 2026 that inspire calm and clarity, perfect for creating your serene retreat.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/very-small-bedroom-ideas-2/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/very-small-bedroom-ideas-2.jpg" alt="10 Very Small Bedroom Ideas for Maximum Space Efficiency" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">10 Very Small Bedroom Ideas for Maximum Space Efficiency</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 10 very small bedroom ideas that maximize space and style, creating a cozy retreat in your home without compromising on design.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/bedroom-designs-2026/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/bedroom-designs-2026.jpg" alt="10 Bedroom Designs 2026: Trendy Styles to Inspire You" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">10 Bedroom Designs 2026: Trendy Styles to Inspire You</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 10 innovative bedroom designs for 2026, blending comfort and style with modern trends. Discover your perfect bedroom aesthetic today!</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/7-beige-bedroom-designs/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/7-beige-bedroom-designs.jpg" alt="7 Beige Bedroom Designs: Tips for a Cozy Space" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">7 Beige Bedroom Designs: Tips for a Cozy Space</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 7 beige bedroom designs with tips and ideas to create a cozy, stylish retreat. Transform your space with these expert suggestions.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/elegant-modern-luxury-bedroom-design/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/elegant-modern-luxury-bedroom-design.jpg" alt="10 Elegant Modern Luxury Bedroom Design Ideas" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">10 Elegant Modern Luxury Bedroom Design Ideas</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 10 Elegant Modern Luxury Bedroom Design ideas that reflect sophistication and comfort, transforming your space into a serene retreat.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/minimalist-bedroom-design-ideas-2/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/minimalist-bedroom-design-ideas-2.jpg" alt="10 Minimalist Bedroom Design Ideas to Transform Your Space" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">10 Minimalist Bedroom Design Ideas to Transform Your Space</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 10 minimalist bedroom design ideas to create a serene and stylish retreat. Embrace simplicity and elegance in your sleeping space.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/9-minimalist-bedroom-decor-ideas/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/9-minimalist-bedroom-decor-ideas.jpg" alt="9 Minimalist Bedroom Decor Ideas for Serenity" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">9 Minimalist Bedroom Decor Ideas for Serenity</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 9 minimalist bedroom decor ideas to create a serene and stylish space that promotes relaxation and tranquility.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/minimalist-bedroom-design-ideas/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/minimalist-bedroom-design-ideas.jpg" alt="10 Minimalist Bedroom Design Ideas for Tranquil Spaces" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">10 Minimalist Bedroom Design Ideas for Tranquil Spaces</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 10 minimalist bedroom design ideas for a serene retreat, combining style and tranquility for your perfect sleeping space.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/modern-minimalism-bedroom-trends/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/modern-minimalism-bedroom-trends.jpg" alt="9 Modern Minimalism Bedroom Trends to Elevate Your Space" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">9 Modern Minimalism Bedroom Trends to Elevate Your Space</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 9 modern minimalism bedroom trends that inspire a serene retreat, blending style and functionality for your perfect space.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/10-tips-for-achieving-a-minimalist-bedroom/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/10-tips-for-achieving-a-minimalist-bedroom.jpg" alt="10 Tips for Achieving a Minimalist Bedroom Retreat" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">10 Tips for Achieving a Minimalist Bedroom Retreat</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Discover 10 essential tips for achieving a minimalist bedroom that promotes tranquility and style. Create your serene sanctuary today!</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/how-to-achieve-the-perfect-minimalist-bedroom-look/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/how-to-achieve-the-perfect-minimalist-bedroom-look.jpg" alt="8 How to Achieve the Perfect Minimalist Bedroom Look" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">8 How to Achieve the Perfect Minimalist Bedroom Look</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Discover how to achieve the perfect minimalist bedroom look with our expert tips on design, color, and decor.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/9-minimalist-bedroom-ideas-for-2026/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/9-minimalist-bedroom-ideas-for-2026.jpg" alt="9 Minimalist Bedroom Ideas for 2026 You’ll Adore" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">9 Minimalist Bedroom Ideas for 2026 You’ll Adore</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 9 minimalist bedroom ideas for 2026 that inspire calm and intentional living. Perfect for creating your serene retreat.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/elegant-minimalist-room-decor-ideas/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/elegant-minimalist-room-decor-ideas.jpg" alt="8 Elegant Minimalist Room Decor Ideas for Serenity" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">8 Elegant Minimalist Room Decor Ideas for Serenity</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 8 elegant minimalist room decor ideas for a calm, sophisticated space that enhances functionality and style in your home.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/minimalistic-bedroom-ideas/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/minimalistic-bedroom-ideas.jpg" alt="8 Minimalistic Bedroom Ideas for Comfort and Charm" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">8 Minimalistic Bedroom Ideas for Comfort and Charm</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 8 minimalistic bedroom ideas that bring comfort and charm to your space, focusing on simplicity and style for a serene atmosphere.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/9-guest-bedroom-daybed-ideas-for-space-saving-comfort/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/9-guest-bedroom-daybed-ideas-for-space-saving-comfort.jpg" alt="9 Guest Bedroom Daybed Ideas for Space-Saving Comfort" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">9 Guest Bedroom Daybed Ideas for Space-Saving Comfort</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 9 guest bedroom daybed ideas for space-saving comfort. Discover stylish designs that maximize your space while welcoming guests.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/luxystar-wooden-daybed-with-trundle-and-drawers/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/luxystar-wooden-daybed-with-trundle-and-drawers.jpg" alt="5 Luxystar Wooden Daybed with Trundle &amp; Drawers" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">5 Luxystar Wooden Daybed with Trundle &amp; Drawers</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Discover the Luxystar Wooden Daybed with Trundle and 2 Drawers, perfect for bedrooms and living rooms. Stylish and functional design for any space.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    <a href="/7-guest-bedroom-daybed-ideas-for-space-efficiency/" class="rel-card" style="display:flex;flex-direction:column">
+      <div class="rel-img-wrap">
+        <img src="/assets/images/7-guest-bedroom-daybed-ideas-for-space-efficiency.jpg" alt="7 Guest Bedroom Daybed Ideas for Space Efficiency" width="400" height="250" loading="lazy" decoding="async" class="rel-img">
+      </div>
+      <div class="rel-body" style="flex-grow:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h2 class="font-serif-title rel-title" style="font-size:1.05rem;margin-bottom:0.5rem">7 Guest Bedroom Daybed Ideas for Space Efficiency</h2>
+          <p style="font-size:0.75rem;color:#4b5563;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.75rem">Explore 7 guest bedroom daybed ideas for space efficiency, combining style and functionality for your home decor.</p>
+        </div>
+        <span style="font-size:0.75rem;font-weight:700;color:#c8001e">Explore Guide &rarr;</span>
+      </div>
+    </a>
+    
+    </div>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 StylesDays Editorial Hub. <a href="/sitemap.xml" style="text-decoration:underline;margin-left:0.5rem;color:#374151">XML Sitemap</a></p>
+  </footer>
 </body>
 </html>
